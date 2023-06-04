@@ -1,7 +1,7 @@
 # projetJavaPabloLoick
 Creation de la table users :
 CREATE TABLE users (
-Numero_Securite_Sociale NUMERIC(15,0) PRIMARY KEY,
+Numero_Securite_Sociale VARCHAR(15) PRIMARY KEY,
 Nom VARCHAR(50),
 Prenom VARCHAR(50),
 Date_Naissance DATE,

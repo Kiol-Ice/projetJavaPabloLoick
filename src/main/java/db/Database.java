@@ -8,17 +8,47 @@ import java.sql.Timestamp;
 
 public class Database {
 	
-	public void EnvoieDonnee(String Numero_Securite_Sociale, String Nom, String Prenom, Date Date_Naissance, String Numero_Telephone, String E_Mail, String ID_Remboursement, String Code_Soin, Float Montant_Remboursement, Timestamp Timestamp_Fichier)
+	private static final String url = "jdbc:mariadb://localhost:3306/projet_java";
+	
+	private static final String username = "root";
+	
+	private static final String password = "test";
+	
+	public Connection ConnectionBase() {
+		Connection conn = null;
+		
+		try {
+			conn = DriverManager.getConnection(url, username, password);
+		}
+		catch (SQLException e) {
+		    e.printStackTrace();
+		}
+		return conn;
+	}
+	
+	public boolean FermetureBase(Connection conn) {
+		boolean result = true;
+		
+		try {
+			conn.close();	
+		}
+		catch (SQLException e) {
+		    e.printStackTrace();
+		    result = false;
+		}
+		return result;
+	}
+	
+	public int EnvoieDonnee(String Numero_Securite_Sociale, String Nom, String Prenom, Date Date_Naissance, String Numero_Telephone, String E_Mail, String ID_Remboursement, String Code_Soin, Float Montant_Remboursement, Timestamp Timestamp_Fichier)
 	{
+		int rowsInserted = 0;
+		
 		try {
 			// Chargement du pilote JDBC
 		    Class.forName("org.mariadb.jdbc.Driver");
 	
 		    // Création de la connexion à la base de données
-		    String url = "jdbc:mariadb://localhost:3306/projet_java";
-		    String username = "root";
-		    String password = "test";
-		    Connection conn = DriverManager.getConnection(url, username, password);
+		    Connection conn = ConnectionBase();
 		    
 		    //Préparation de la requêtes SQL
 			String sql = "INSERT INTO users (Numero_Securite_Sociale, Nom, Prenom, Date_Naissance, Numero_Telephone, E_Mail, ID_Remboursement, Code_Soin, Montant_Remboursement, Timestamp_Fichier) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -35,13 +65,11 @@ public class Database {
 			statement.setTimestamp(10, Timestamp_Fichier);
 			
 			//Insertion des données
-			int rowsInserted = statement.executeUpdate();
-			if (rowsInserted > 0) {
-			}
+			rowsInserted = statement.executeUpdate();
 			
 			//Fermeture de la connexion
 			statement.close();
-			conn.close();	
+			FermetureBase(conn);
 		}
 		catch (ClassNotFoundException erreurClasse) {
 			erreurClasse.printStackTrace();
@@ -49,5 +77,21 @@ public class Database {
 		    e.printStackTrace();
 		}
 
+		return rowsInserted;
+	}
+	
+	public boolean IsConnectionWorking() {
+		boolean result = true;
+		
+		Connection conn = ConnectionBase();
+		if (conn == null)
+		{
+			result = false;
+		}
+		else
+		{
+			FermetureBase(conn);
+		}
+		return result;
 	}
 }

@@ -37,7 +37,7 @@ Ce fichier contient les informations suivantes :
         
 Il suffit ensuite d'ouvrir un terminal et de faire la commande "docker-compose up".
 Ceci va permettre de créer notre base de données et de la mettre en marche.
-Nous pouvons maintenant nous y connecter avec PostgreSQL afin de créer notre table.
+Nous pouvons maintenant nous y connecter avec MySQL Workbench afin de créer notre table.
 Vous trouverez ci dessous la déclaration de la table dans laquelle le projet peut inserer des données.
 
 Creation de la table users :

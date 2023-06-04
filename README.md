@@ -57,10 +57,10 @@ Timestamp_Fichier TIMESTAMP
 ## Dépendances et plugin
 
 Afin de pouvoir gérer les testes unitaires, la connection et les insertions à la base de donnée, nous avons eu besoins des dépendances suivantes :
--junit version 4.12
--mariadb-java-client version 3.1.4
--slf4j-simple version 2.0.7
--slf4j-api version 2.0.7
+- junit version 4.12
+- mariadb-java-client version 3.1.4
+- slf4j-simple version 2.0.7
+- slf4j-api version 2.0.7
 
 Afin de pouvoir inclure nos dépendances dans le fichier jar généré, nous avons utilisé le plugin suivant :
--maven-assembly-plugin
+- maven-assembly-plugin

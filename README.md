@@ -19,21 +19,21 @@ Ainsi que les classes de tests unitaires correspondantes.
 Nous avons utilisé un base mariaDb (avec docker). Pour se faire , nous avons créé un fichier nommé "docker-compose.yml".
 Ce fichier contient les informations suivantes :
 
-version: '3.3'
-services:
+    version: '3.3'
+    services:
 
-    database:
-       image: 'mariadb:latest'
-       container_name: projet_java
-       restart: always
-       environment:
-         - MYSQL_USER=user
-         - MYSQL_PASSWORD=test
-         - MYSQL_DATABASE=projet_java
-         - MYSQL_ROOT_PASSWORD=test
+        database:
+        image: 'mariadb:latest'
+        container_name: projet_java
+        restart: always
+        environment:
+             - MYSQL_USER=user
+            - MYSQL_PASSWORD=test
+            - MYSQL_DATABASE=projet_java
+            - MYSQL_ROOT_PASSWORD=test
         
-       ports:
-           - '3306:3306'
+        ports:
+               - '3306:3306'
         
 Il suffit ensuite d'ouvrir un terminal et de faire la commande "docker-compose up".
 Ceci va permettre de créer notre base de données et de la mettre en marche.

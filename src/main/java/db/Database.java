@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 
 public class Database {
 	
-	public void EnvoieDonnee(Integer Numero_Securite_Sociale, String Nom, String Prenom, Date Date_Naissance, String Numero_Telephone, String E_Mail, String ID_Remboursement, String Code_Soin, Float Montant_Remboursement, Timestamp Timestamp_Fichier)
+	public void EnvoieDonnee(String Numero_Securite_Sociale, String Nom, String Prenom, Date Date_Naissance, String Numero_Telephone, String E_Mail, String ID_Remboursement, String Code_Soin, Float Montant_Remboursement, Timestamp Timestamp_Fichier)
 	{
 		try {
 			// Chargement du pilote JDBC
@@ -19,12 +19,11 @@ public class Database {
 		    String username = "root";
 		    String password = "test";
 		    Connection conn = DriverManager.getConnection(url, username, password);
-		    System.out.println("Connection réussi");
 		    
 		    //Préparation de la requêtes SQL
 			String sql = "INSERT INTO users (Numero_Securite_Sociale, Nom, Prenom, Date_Naissance, Numero_Telephone, E_Mail, ID_Remboursement, Code_Soin, Montant_Remboursement, Timestamp_Fichier) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setInt(1, Numero_Securite_Sociale);
+			statement.setString(1, Numero_Securite_Sociale);
 			statement.setString(2, Nom);
 			statement.setString(3, Prenom);
 			statement.setDate(4, Date_Naissance);
@@ -38,7 +37,6 @@ public class Database {
 			//Insertion des données
 			int rowsInserted = statement.executeUpdate();
 			if (rowsInserted > 0) {
-			    System.out.println("Données insérées avec succès !");
 			}
 			
 			//Fermeture de la connexion

@@ -27,26 +27,28 @@ public class App {
 		        CsvReader reader = new CsvReader(filePath); // Instanciation du Reader
 		        if (reader.ReadFile()) // Lecture du fichier
 		        {
-		        	String[] data = reader.getFileEntries().get(0).split(","); // récupération de la 1ere ligne du fichier
-	        		Timestamp timestamp = new Timestamp(0);
-	        		Date date = new Date(0);
-		        	
-		        	try {
-		        		timestamp = new Timestamp(new SimpleDateFormat("yyyyMMddHHmmss").parse(timestampString).getTime());
-		        		date = new Date( new SimpleDateFormat("dd-MM-yyyy").parse(data[3]).getTime());
-		        	}
-		        	catch(java.text.ParseException e)
+		        	for(int j=0; j< reader.getFileEntries().size(); j++)
 		        	{
-		        		e.printStackTrace();	
+		        		String[] data = reader.getFileEntries().get(j).split(","); // récupération de la 1ere ligne du fichier
+		        		Timestamp timestamp = new Timestamp(0);
+		        		Date date = new Date(0);
+			        	
+			        	try {
+			        		timestamp = new Timestamp(new SimpleDateFormat("yyyyMMddHHmmss").parse(timestampString).getTime());
+			        		date = new Date( new SimpleDateFormat("dd-MM-yyyy").parse(data[3]).getTime());
+			        	}
+			        	catch(java.text.ParseException e)
+			        	{
+			        		e.printStackTrace();	
+			        	}
+			        	db.EnvoieDonnee(data[0], data[1], data[2], date, data[4], data[5], data[6], data[7], Float.valueOf(data[8]), timestamp);
 		        	}
-		        	db.EnvoieDonnee(Integer.parseInt(data[0].replaceAll(" ", "").replaceAll("\"", "")), data[1], data[2], date, data[4].replaceAll(" ", "").replaceAll("\"", ""), data[5], data[6], data[7], Float.valueOf(data[8]), timestamp);
 		        }
 		        
 		        i++;
 		    }
 		}
-		
-		
+	    System.out.println("Données insérées avec succès !");
 	}
 
 }
